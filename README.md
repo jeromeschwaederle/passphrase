@@ -14,8 +14,6 @@ La force d’un mot de passe peut être estimée par comparaison avec les techni
 
 Les règles édictées par l’ANSSI en matière de mécanismes cryptographiques imposent par exemple une taille de clé minimale de 100 bits. Il est même recommandé une taille de clé de 128 bits pour des clés dont l’usage présumé est de longue durée. Il est par ailleurs communément admis que des tailles de clé de 80 bits sont désormais exposées à des attaques utilisant des moyens techniques conséquents.
 
-Ces chiffres permettent de calibrer la « force » d’un mot de passe.
-
 ### L'entropie
 
 Pour comprendre ce qu'est la robustesse d'un mot de passe, il faut d'abord comprendre ce
