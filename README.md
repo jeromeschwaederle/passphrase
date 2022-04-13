@@ -16,7 +16,7 @@ Les règles édictées par l’ANSSI en matière de mécanismes cryptographiques
 
 ### L'entropie
 
-Pour comprendre ce qu'est la robustesse d'un mot de passe, il faut d'abord comprendre ce
+Pour comprendre ce qu'est la robustesse d'un mot de passe, il faut aussi comprendre ce
 qu'est [l'entropie](https://fr.wikipedia.org/wiki/Entropie_de_Shannon).
 
 Pour la faire courte, l'entropie est [une mesure de l'imprévisibilité](https://fr.wikipedia.org/wiki/Robustesse_d%27un_mot_de_passe#L'entropie_comme_mesure_de_la_robustesse_d'un_mot_de_passe) d'un mot de passe. L'unité de mesure de cette imprévisibilité est le [bit](https://fr.wikipedia.org/wiki/Bit) (unité la plus simple dans un système de numération, ne pouvant prendre que deux valeurs, désignées le plus souvent par les chiffres 0 et 1).
@@ -37,9 +37,9 @@ de symboles, que ce soit des chiffres ou des lettres ? Nous allons faire l'expé
 Jean-Jacques.
 
 Jean-Jacques souhaite créer un mot de passe aléatoire de 8 symboles, uniquement composé de 0
-et de 1. Avec huit symboles, il y a 2x2x2x2x2x2x2x2 = 2^8 = 256 combinaisons différentes
+et de 1. Avec 8 symboles, il y a 2x2x2x2x2x2x2x2 = 2^8 = 256 combinaisons différentes
 possibles. Pour calculer l'entropie de ce mot de passe mesurée en bit, on passe le nombre
-maximal de possibilités dans logarithme de base 2. On a donc log2(256) = 8 bits d'entropie.
+maximal de possibilités dans une fonction logarithmique de base 2. On a donc log2(256) = 8 bits d'entropie.
 
 Il écrit une suite aléatoire de 8 symboles, soit des 0, soit des 1. Il répète cette
 opération 1000 fois en tout. Il a maintenant écrit 8000 symboles. Pour vérifier si la
@@ -70,10 +70,10 @@ Version 8 : 111
 
 Avec une distribution réellement aléatoire, il devrait avoir environ 2666/8 = 333 fois
 chaque "version", mais il se rend compte que ça n'est pas le cas. Peut importe combien de
-fois il essait, Jean-Jacques n'y arrive pas. Il est impossible pour lui ou pour tout être humain de choisir réellement aléatoirement une suite de symbole.
+fois il essaie, Jean-Jacques n'y arrive pas. Il est impossible pour lui ou pour tout être humain de choisir réellement aléatoirement une suite de symboles.
 
 Le seul moyen pour lui d'y arriver est de laisser un évènement qui a une probabilité de 50%
-décider à sa place (comme de jouer à pile ou face avec une pièce de monaie) afin que
+décider à sa place (comme de jouer à pile ou face avec une pièce de monnaie) afin que
 l'imprévisibilité de l'évènement décide à sa place, **afin que sa suite de symboles contienne de l'entropie**.
 
 ## Ma démarche
