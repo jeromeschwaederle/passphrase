@@ -1,22 +1,12 @@
 # Password
 
----
-
----
-
 ## Explication
-
----
-
----
 
 ### Comprendre la robustesse/force d'un mot de passe
 
 Par abus de langage, on parle souvent de « force » d’un mot de passe pour désigner sa capacité à résister à une énumération de tous les mots de passe possibles.
 
 Cette « force » dépend de la longueur L du mot de passe et du nombre N de caractères possibles. Elle suppose que le mot de passe est choisi de façon aléatoire. Elle se calcule aisément par la formule N^L. Mais il est plus difficile d’estimer si la valeur ainsi obtenue est suffisante ou pas.
-
----
 
 ### Comment estimer la « force » d'un mot de passe ?
 
@@ -26,8 +16,6 @@ Les règles édictées par l’ANSSI en matière de mécanismes cryptographiques
 
 Ces chiffres permettent de calibrer la « force » d’un mot de passe.
 
----
-
 ### L'entropie
 
 Pour comprendre ce qu'est la robustesse d'un mot de passe, il faut d'abord comprendre ce
@@ -36,8 +24,6 @@ qu'est [l'entropie](https://fr.wikipedia.org/wiki/Entropie_de_Shannon).
 Pour la faire courte, l'entropie est [une mesure de l'imprévisibilité](https://fr.wikipedia.org/wiki/Robustesse_d%27un_mot_de_passe#L'entropie_comme_mesure_de_la_robustesse_d'un_mot_de_passe) d'un mot de passe. L'unité de mesure de cette imprévisibilité est le [bit](https://fr.wikipedia.org/wiki/Bit) (unité la plus simple dans un système de numération, ne pouvant prendre que deux valeurs, désignées le plus souvent par les chiffres 0 et 1).
 En conséquence, plus un mot de passe est difficile à deviner, plus son entropie (mesurée en
 bit) est grande et meilleure est sa robustesse.
-
----
 
 ### Qu'est-ce qu'un mot de passe aléatoire ?
 
@@ -92,15 +78,7 @@ Le seul moyen pour lui d'y arriver est de laisser un évènement qui a une proba
 décider à sa place (comme de jouer à pile ou face avec une pièce de monaie) afin que
 l'imprévisibilité de l'évènement décide à sa place, **afin que sa suite de symboles contienne de l'entropie**.
 
----
-
----
-
 ## Ma démarche
-
----
-
----
 
 ### Une recherche insatisfaisante
 
@@ -138,8 +116,6 @@ contenait beaucoup trop de mots semblables. Cela représente, à mon sens, deux 
 
 13214 = aies
 
----
-
 ### L'envie de créer une alternative
 
 En conséquence, j'ai souhaité créer une alternative à "Diceware" en m'inspirant du [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) de bitcoin. Plus particulièrement la partie concernant les phrases mnémoniques pour la génération de portefeuille déterministe ainsi qu'en utilisant la [version française](https://github.com/bitcoin/bips/blob/master/bip-0039/french.txt) de la liste de mots anglais servant à l'implémentation de ces phrases.
@@ -170,17 +146,11 @@ Cette liste de 2048 mots a des propriétés très intéressantes dont voici les 
 - Pas de mots gênants (dans un cadre très, très large) ou appartenant à une religion
   particulière.
 
----
-
 ## Le Jéjé-nérateur de mot de passe
-
----
 
 ### Est-ce que je peux l'utiliser en confiance ?
 
 Tout le code s'exécute directement dans le navigateur et rien n'est envoyé sur internet. Il s'exécutera parfaitement sur un ordinateur qui n'est pas connecté à internet, ce que je conseille de faire.
-
----
 
 ### Comment est générée l'entropie nécessaire ?
 
@@ -190,8 +160,6 @@ transforme ensuite ces valeurs en 0 (de -128 à -1) ou en 1 (de 0 à 127).
 
 Cela me donne des nombres binaires de 11 bits que je n'ai plus qu'à transformer en nombre
 décimaux. Je transforme ensuite ces nombres décimaux en mots en les récupérant en fonction de leur index dans la [liste](https://github.com/bitcoin/bips/blob/master/bip-0039/french.txt).
-
----
 
 ### Mise à l'épreuve
 
