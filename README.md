@@ -6,75 +6,13 @@
 
 Par abus de langage, on parle souvent de « force » d’un mot de passe pour désigner sa capacité à résister à une énumération de tous les mots de passe possibles.
 
-Cette « force » dépend de la longueur L du mot de passe et du nombre N de caractères possibles. Elle suppose que le mot de passe est choisi de façon aléatoire. Elle se calcule aisément par la formule N^L. Mais il est plus difficile d’estimer si la valeur ainsi obtenue est suffisante ou pas.
+Cette « force » dépend de la longueur L du mot de passe et du nombre N de caractères possibles. Elle suppose que chaque caractère constituant le mot de passe est choisi de manière aléatoire. Elle se calcule aisément par la formule N^L. Mais il est plus difficile d’estimer si la valeur ainsi obtenue est suffisante ou pas.
 
 ### Comment estimer la « force » d'un mot de passe ?
 
 La force d’un mot de passe peut être estimée par comparaison avec les techniques cryptographiques. Une taille de clé cryptographique de 64 bits est aujourd’hui considérée comme non sûre car les capacités de calcul modernes permettent de retrouver cette clé en énumérant toutes les clés possibles. Or une telle clé peut être vue comme un mot de passe de 64 caractères où les seuls caractères possibles sont 0 et 1. La « force » d’un tel mot de passe est donc 2^64 soit 64 bits.
 
-Les règles édictées par l’ANSSI en matière de mécanismes cryptographiques imposent par exemple une taille de clé minimale de 100 bits. Il est même recommandé une taille de clé de 128 bits pour des clés dont l’usage présumé est de longue durée. Il est par ailleurs communément admis que des tailles de clé de 80 bits sont désormais exposées à des attaques utilisant des moyens techniques conséquents.
-
-### L'entropie
-
-Pour comprendre ce qu'est la robustesse d'un mot de passe, il faut d'abord comprendre ce
-qu'est [l'entropie](https://fr.wikipedia.org/wiki/Entropie_de_Shannon).
-
-Pour la faire courte, l'entropie est [une mesure de l'imprévisibilité](https://fr.wikipedia.org/wiki/Robustesse_d%27un_mot_de_passe#L'entropie_comme_mesure_de_la_robustesse_d'un_mot_de_passe) d'un mot de passe. L'unité de mesure de cette imprévisibilité est le [bit](https://fr.wikipedia.org/wiki/Bit) (unité la plus simple dans un système de numération, ne pouvant prendre que deux valeurs, désignées le plus souvent par les chiffres 0 et 1).
-En conséquence, plus un mot de passe est difficile à deviner, plus son entropie (mesurée en
-bit) est grande et meilleure est sa robustesse.
-
-### Qu'est-ce qu'un mot de passe aléatoire ?
-
-Définissons ensemble qu'un mot de passe aléatoire est une chaîne de symboles d'une longueur
-spécifiée, tirée d'un ensemble de symboles et produite par un processus de sélection
-aléatoire dans lequel chaque symbole a la même probabilité d'être sélectionné.
-
-#### Générer du hasard (de l'entropie)
-
-Nous venons de définir que le processus de sélection doit être aléatoire mais, en tant
-qu'être humain, nous est-il possible de choisir de manière réellement aléatoire une séquence
-de symboles, que ce soit des chiffres ou des lettres ? Nous allons faire l'expérience avec
-Jean-Jacques.
-
-Jean-Jacques souhaite créer un mot de passe aléatoire de 8 symboles, uniquement composé de 0
-et de 1. Avec huit symboles, il y a 2x2x2x2x2x2x2x2 = 2^8 = 256 combinaisons différentes
-possibles. Pour calculer l'entropie de ce mot de passe mesurée en bit, on passe le nombre
-maximal de possibilités dans logarithme de base 2. On a donc log2(256) = 8 bits d'entropie.
-
-Il écrit une suite aléatoire de 8 symboles, soit des 0, soit des 1. Il répète cette
-opération 1000 fois en tout. Il a maintenant écrit 8000 symboles. Pour vérifier si la
-distribution est réellement aléatoire, Jean-Jacques met bout à bout ses 1000 versions. Il
-observe cette longue chaîne de 0 et de 1 et il lui semble que la distribution est aléatoire
-mais pour le vérifier il doit tester une caractéristique : la distribution de petits groupes
-de symboles.
-
-Jean-Jacques redécoupe sa longue chaîne de 0 et de 1 en paquet de trois symboles. Il a donc
-maintenant 8000/3 = 2666 paquets de trois symboles. Avec des 0 et des 1, il y a 2x2x2 = 2^3
-= 8 "versions" de paquet différent.
-
-Version 1 : 000
-
-Version 2 : 001
-
-Version 3 : 010
-
-Version 4 : 011
-
-Version 5 : 100
-
-Version 6 : 101
-
-Version 7 : 110
-
-Version 8 : 111
-
-Avec une distribution réellement aléatoire, il devrait avoir environ 2666/8 = 333 fois
-chaque "version", mais il se rend compte que ça n'est pas le cas. Peut importe combien de
-fois il essait, Jean-Jacques n'y arrive pas. Il est impossible pour lui ou pour tout être humain de choisir réellement aléatoirement une suite de symbole.
-
-Le seul moyen pour lui d'y arriver est de laisser un évènement qui a une probabilité de 50%
-décider à sa place (comme de jouer à pile ou face avec une pièce de monaie) afin que
-l'imprévisibilité de l'évènement décide à sa place, **afin que sa suite de symboles contienne de l'entropie**.
+Les règles édictées par l’ANSSI (Agence Nationale de la Sécurité des Systèmes d'Information) en matière de mécanismes cryptographiques imposent par exemple une taille de clé minimale de 100 bits. Il est même recommandé une taille de clé de 128 bits pour des clés dont l’usage présumé est de longue durée. Il est par ailleurs communément admis que des tailles de clé de 80 bits sont désormais exposées à des attaques utilisant des moyens techniques conséquents.
 
 ## Ma démarche
 
@@ -87,8 +25,8 @@ On jette 5 dés et la séquence que l'on obtient nous donne le numéro du mot da
 répète l'opération autant de fois que l'on souhaite de mot. Chaque mot joue le rôle d'un
 symbole et ajoute 12,92 bits d'entropie.
 
-En parcourant cette liste, je me suis fais la réflexion qu'elle était très longue et
-contenait beaucoup trop de mots semblables. Cela représente, à mon sens, deux caractéristiques à éviter, si l'on souhaite pouvoir facilement imprimer la liste ou retenir la phrase. Voir l'extrait :
+En parcourant cette liste, je me suis fais la réflexion qu'elle était très (trop) longue et
+contenait beaucoup (trop) de mots semblables. Cela représente, à mon sens, deux caractéristiques à éviter, si l'on souhaite pouvoir facilement imprimer la liste ou retenir la phrase. Voir l'extrait :
 
 13155 = aida
 
@@ -144,6 +82,8 @@ Cette liste de 2048 mots a des propriétés très intéressantes dont voici les 
 - Pas de mots gênants (dans un cadre très, très large) ou appartenant à une religion
   particulière.
 
+Chacun des 2048 mots peut être considéré comme un symbole unique et ajoute 11 bits d'entropie => log2048/log2 = 11
+
 ## Le Jéjé-nérateur de mot de passe
 
 ### Est-ce que je peux l'utiliser en confiance ?
@@ -175,4 +115,8 @@ Pour comparer les deux types de mot de passe :
 Jéjé-nérateur :
 **ChiffrePétaleNoisettePoneyProblèmeFeuille**
 
-est plus robuste que : **w~5K%O#ih7**
+est plus robuste que : **w~5]K%O#ih7**
+
+### Possibilité de racoursir la phrase de passe
+
+Étant donné qu'un mot est entièrement reconnaissable dans la liste en tapant ses 4 premières lettres on peut ainsi réduire la longueur du mot de passe. En effet dans ce cas, **ChiffrePétaleNoisettePoneyProblèmeFeuille** devient **ChifPétaNoisPoneProbFeui**

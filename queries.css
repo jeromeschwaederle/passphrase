@@ -1,0 +1,18 @@
+/***************/
+/* BELOW 448px */
+/***************/
+
+@media (max-width: 28em) {
+  html {
+    /* 9px / 16px  */
+    font-size: 56.25%;
+  }
+
+  .label {
+    text-align: left;
+  }
+
+  .controls {
+    flex-direction: column;
+  }
+}

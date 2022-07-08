@@ -1,27 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300&display=swap"
+      rel="stylesheet"
+    />
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Générateur de mot de passe</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="queries.css" />
     <script defer src="wordList.js"></script>
     <script defer src="script.js"></script>
   </head>
 
   <body>
+    <a
+      class="lien"
+      target="_blank"
+      href="https://github.com/jeromeschwaederle/password"
+      >Code source</a
+    >
     <div class="box">
       <h1 class="title">Jéjé-nérateur de mot de passe</h1>
-      <h3 class="advice">
-        Veuillez indiquer ci-dessous le nombre de mots que vous souhaitez<br />
-        pour votre phrase de passe. Conseil : au moins 8 !!!
-      </h3>
-      <form>
-        <input type="number" min="1" max="5000" step="1" defaultValue="8" />
-        <button class="create_password btnRetro">Cliquer pour générer une phrase de passe</button>
+
+      <form class="form">
+        <label class="label" for="input">
+          Veuillez indiquer ci-dessous le nombre de mots que vous souhaitez pour
+          votre phrase de passe. Conseil : au moins 8 !!!</label
+        >
+        <span class="warning hide"></span>
+        <div class="controls">
+          <input
+            id="input"
+            class="input"
+            type="number"
+            min="1"
+            max="5000"
+            step="1"
+            defaultValue="8"
+          />
+          <button type="submit" class="btnSubmit">
+            Générer un mot de passe
+          </button>
+        </div>
       </form>
-      <h3 class="stats"></h3>
-      <h1 class="password"></h1>
+      <p class="stats"></p>
+      <p class="password" id="password"></p>
     </div>
   </body>
 </html>
