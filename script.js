@@ -71,6 +71,8 @@ btnNewPassword.addEventListener("click", function (e) {
     warning.classList.remove("hide");
   } else {
     warning.classList.add("hide");
+    stats.classList.remove("hide");
+    password.classList.remove("hide");
     password.textContent = makePassword(number);
     stats.textContent = `${number * 11} bits d'entropie.`;
     password.scrollIntoView({ behavior: "smooth" });

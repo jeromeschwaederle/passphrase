@@ -8,13 +8,19 @@
       rel="stylesheet"
     />
 
+    <meta
+      name="description"
+      content="Le générateur de phrase de passe vous garantie des phrases de passe difficiles à deviner mais faciles à retenir et à saisir sans erreur."
+    />
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Générateur de mot de passe</title>
+
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="queries.css" />
     <script defer src="wordList.js"></script>
     <script defer src="script.js"></script>
+    <title>Générateur de phrase de passe</title>
   </head>
 
   <body>
@@ -25,7 +31,7 @@
       >Code source</a
     >
     <div class="box">
-      <h1 class="title">Jéjé-nérateur de mot de passe</h1>
+      <h1 class="title">Générateur de phrase de passe</h1>
 
       <form class="form">
         <label class="label" for="input">
@@ -43,13 +49,11 @@
             step="1"
             defaultValue="8"
           />
-          <button type="submit" class="btnSubmit">
-            Générer un mot de passe
-          </button>
+          <button type="submit" class="btnSubmit">Générer</button>
         </div>
       </form>
-      <p class="stats"></p>
-      <p class="password" id="password"></p>
+      <p class="stats hide"></p>
+      <p class="password hide" id="password"></p>
     </div>
   </body>
 </html>

@@ -1,6 +1,6 @@
 # Password
 
-## Explication
+## Explications
 
 ### Comprendre la robustesse/force d'un mot de passe
 
@@ -28,29 +28,7 @@ symbole et ajoute 12,92 bits d'entropie.
 En parcourant cette liste, je me suis fais la réflexion qu'elle était très (trop) longue et
 contenait beaucoup (trop) de mots semblables. Cela représente, à mon sens, deux caractéristiques à éviter, si l'on souhaite pouvoir facilement imprimer la liste ou retenir la phrase. Voir l'extrait :
 
-13155 = aida
-
-13156 = aidais
-
-13161 = aidant
-
-13162 = aide
-
-13163 = aider
-
-13164 = aides
-
-13165 = aidez
-
-13166 = aidiez
-
-13211 = aidons
-
-13212 = aie
-
-13213 = aient
-
-13214 = aies
+13155 = aida | 13156 = aidais | 13161 = aidant | 13162 = aide | 13163 = aider | 13164 = aides | 13165 = aidez | 13166 = aidiez | 13211 = aidons | 13212 = aie | 13213 = aient | 13214 = aies
 
 ### L'envie de créer une alternative
 
@@ -82,9 +60,9 @@ Cette liste de 2048 mots a des propriétés très intéressantes dont voici les 
 - Pas de mots gênants (dans un cadre très, très large) ou appartenant à une religion
   particulière.
 
-Chacun des 2048 mots peut être considéré comme un symbole unique et ajoute 11 bits d'entropie => log2048/log2 = 11
+À l'instar de Diceware, chacun des 2048 mots peut être considéré comme un symbole unique et ajoute 11 bits d'entropie => log2048/log2 = 11
 
-## Le Jéjé-nérateur de mot de passe
+## Le générateur de phrase de passe
 
 ### Est-ce que je peux l'utiliser en confiance ?
 
@@ -96,12 +74,12 @@ J'utilise cette [méthode](https://developer.mozilla.org/fr/docs/Web/API/Crypto/
 satisfaisantes, pour chaque mot. Ces valeurs sont comprises entre -128 et 127 (int8). Je
 transforme ensuite ces valeurs en 0 (de -128 à -1) ou en 1 (de 0 à 127).
 
-Cela me donne des nombres binaires de 11 bits que je n'ai plus qu'à transformer en nombre
+Cela me donne des nombres binaires de 11 bits que je n'ai plus qu'à transformer en nombres
 décimaux. Je transforme ensuite ces nombres décimaux en mots en les récupérant en fonction de leur index dans la [liste](https://github.com/bitcoin/bips/blob/master/bip-0039/french.txt).
 
 ### Mise à l'épreuve
 
-Même dans le cas où un "attaquant" connaitraît la liste de mots, un mot de passe généré avec
+Même dans le cas où un "attaquant" connaîtrait la liste de mots, une phrase de passe générée avec
 une longueur de 6 mots sera plus robuste qu'une suite aléatoire de 10 caractères parmis les
 95 ci-dessous:
 
@@ -112,11 +90,11 @@ En effet, log2(2048^6) > log2(95^10).
 
 Pour comparer les deux types de mot de passe :
 
-Jéjé-nérateur :
+Générateur de phrase de passe :
 **ChiffrePétaleNoisettePoneyProblèmeFeuille**
 
 est plus robuste que : **w~5]K%O#ih7**
 
-### Possibilité de racoursir la phrase de passe
+### Possibilité de raccourcir la phrase de passe
 
-Étant donné qu'un mot est entièrement reconnaissable dans la liste en tapant ses 4 premières lettres on peut ainsi réduire la longueur du mot de passe. En effet dans ce cas, **ChiffrePétaleNoisettePoneyProblèmeFeuille** devient **ChifPétaNoisPoneProbFeui**
+Étant donné qu'un mot est entièrement reconnaissable dans la liste en tapant ses 4 premières lettres on peut ainsi réduire la longueur de la phrase de passe. En effet dans ce cas, **ChiffrePétaleNoisettePoneyProblèmeFeuille** devient **ChifPétaNoisPoneProbFeui**
