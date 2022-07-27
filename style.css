@@ -20,7 +20,7 @@ SPACING SYSTEM:
 }
 
 html {
-  font-family: "Source Code Pro", monospace;
+  font-family: monospace, sans-serif, serif;
   font-size: 62.5%;
 }
 
