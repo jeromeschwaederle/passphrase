@@ -54,7 +54,7 @@ const setTextAndShowElements = elements => {
   });
 };
 
-const Warn = message => {
+const warn = message => {
   hideElement(passphraseElement);
   hideElement(statsElement);
   setElementTextContent(warningElement, message);
@@ -74,8 +74,8 @@ function clickHandler(event) {
 }
 
 function sideEffectsDependingOnNumber(number) {
-  if (number <= 0) Warn("Merci de rentrer un entier positif...");
-  if (number > 5000) Warn("Merci de rentrer un entier positif inférieur à 5001.");
+  if (number <= 0) warn("Merci de rentrer un entier positif...");
+  if (number > 5000) warn("Merci de rentrer un entier positif inférieur à 5001.");
   if (number > 0 && number <= 5000) numberIsInRangeEffects(number);
 }
 
