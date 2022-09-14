@@ -1,14 +1,62 @@
-// #####################################################
-// Selections
-
 const warningElement = document.querySelector(".warning");
 const inputNumberOfWordsForPassphrase = document.querySelector("input");
 const btnNewPassword = document.querySelector(".btnSubmit");
 const statsElement = document.querySelector(".stats");
 const passphraseElement = document.querySelector(".password");
 
-// #####################################################
-// Passphrase Fonctions
+btnNewPassword.addEventListener("click", clickHandler);
+
+function clickHandler(event) {
+  event.preventDefault();
+  const numberInt = sureInt(inputNumberOfWordsForPassphrase.value);
+  inputNumberOfWordsForPassphrase.value = numberInt;
+  sideEffectsDependingOnNumber(numberInt);
+}
+
+function sureInt(number) {
+  return Math.floor(Number(number));
+}
+
+function sideEffectsDependingOnNumber(number) {
+  if (number <= 0) warn("Merci de rentrer un entier positif...");
+  if (number > 500) warn("Merci de rentrer un entier positif inférieur à 501.");
+  if (number > 0 && number <= 500) numberIsInRangeEffects(number);
+}
+
+function warn(message) {
+  hideThisElement(passphraseElement);
+  hideThisElement(statsElement);
+  setElementTextContent(warningElement, message);
+  showThisElement(warningElement);
+}
+
+function hideThisElement(element) {
+  element.classList.add("hide");
+}
+
+function setElementTextContent(element, content) {
+  element.textContent = content;
+}
+
+function showThisElement(element) {
+  element.classList.remove("hide");
+}
+
+function numberIsInRangeEffects(number) {
+  hideThisElement(warningElement);
+  setTextAndShowElements([
+    { name: statsElement, text: `${number * 11} bits d'entropie.` },
+    { name: passphraseElement, text: makePassphrase(number) },
+  ]);
+  statsElement.scrollIntoView({ behavior: "smooth" });
+}
+
+function setTextAndShowElements(elements) {
+  elements.map(element => {
+    setElementTextContent(element.name, element.text);
+    showThisElement(element.name);
+  });
+}
 
 function makePassphrase(numberOfWords) {
   return createRandomInt8Values(numberOfWords * 11);
@@ -39,56 +87,3 @@ function turn11BitsArrayIntoPassphrase(arrayOf11Bits) {
     .join(" - ");
   return passphrase;
 }
-
-// #####################################################
-// UI Fonctions
-
-const setElementTextContent = (element, content) => (element.textContent = content);
-const showElement = element => void element.classList.remove("hide");
-const hideElement = element => void element.classList.add("hide");
-
-const setTextAndShowElements = elements => {
-  elements.map(element => {
-    setElementTextContent(element.name, element.text);
-    showElement(element.name);
-  });
-};
-
-const warn = message => {
-  hideElement(passphraseElement);
-  hideElement(statsElement);
-  setElementTextContent(warningElement, message);
-  showElement(warningElement);
-};
-
-const sureInt = number => Math.floor(Number(number));
-
-// #####################################################
-// Event Handler
-
-function clickHandler(event) {
-  event.preventDefault();
-  const numberInt = sureInt(inputNumberOfWordsForPassphrase.value);
-  inputNumberOfWordsForPassphrase.value = numberInt;
-  sideEffectsDependingOnNumber(numberInt);
-}
-
-function sideEffectsDependingOnNumber(number) {
-  if (number <= 0) warn("Merci de rentrer un entier positif...");
-  if (number > 5000) warn("Merci de rentrer un entier positif inférieur à 5001.");
-  if (number > 0 && number <= 5000) numberIsInRangeEffects(number);
-}
-
-function numberIsInRangeEffects(number) {
-  hideElement(warningElement);
-  setTextAndShowElements([
-    { name: statsElement, text: `${number * 11} bits d'entropie.` },
-    { name: passphraseElement, text: makePassphrase(number) },
-  ]);
-  statsElement.scrollIntoView({ behavior: "smooth" });
-}
-
-// #####################################################
-// Events
-
-btnNewPassword.addEventListener("click", clickHandler);
