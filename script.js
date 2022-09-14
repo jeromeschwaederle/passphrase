@@ -1,80 +1,94 @@
+// #####################################################
 // Selections
 
-const warning = document.querySelector(".warning");
-const inputNumberWords = document.querySelector("input");
+const warningElement = document.querySelector(".warning");
+const inputNumberOfWordsForPassphrase = document.querySelector("input");
 const btnNewPassword = document.querySelector(".btnSubmit");
-const stats = document.querySelector(".stats");
-const password = document.querySelector(".password");
+const statsElement = document.querySelector(".stats");
+const passphraseElement = document.querySelector(".password");
 
-// Fonctions
+// #####################################################
+// Passphrase Fonctions
 
-function createRandomValues(numberOfValues) {
-  const arrRandom = new Int8Array(numberOfValues);
-  window.crypto.getRandomValues(arrRandom);
-  return arrRandom;
+function makePassphrase(numberOfWords) {
+  return createRandomInt8Values(numberOfWords * 11);
 }
 
-function turnRandomIntoBinary(arrRandom) {
-  const result = arrRandom.map(x => (x >= 0 ? 1 : 0)).join("");
-  return result;
+function createRandomInt8Values(numberOfValues) {
+  const arrRandomValues = new Int8Array(numberOfValues);
+  window.crypto.getRandomValues(arrRandomValues);
+  return turnRandomValuesIntoBinaryString(arrRandomValues);
 }
 
-function makeArrOf11Bits(bits, number_of_words) {
-  const parts = [];
-  let a = 0;
-  let b = 11;
-  for (let i = 0; i < number_of_words; i++) {
-    parts.push(bits.slice(a, b));
-    a += 11;
-    b += 11;
-  }
-  return parts;
+function turnRandomValuesIntoBinaryString(arrRandomValues) {
+  const binaryString = arrRandomValues.map(randomNumber => (randomNumber >= 0 ? 1 : 0)).join("");
+  return makeArrOf11Bits(binaryString, inputNumberOfWordsForPassphrase.value);
 }
 
-function turnBitsIntoWordList(arr) {
-  const password = arr
+function makeArrOf11Bits(binaryString, numberOfWordsForPassphrase) {
+  const arrayOf11Bits = [];
+  for (let i = 0; i < numberOfWordsForPassphrase; i++)
+    arrayOf11Bits.push(binaryString.slice(i * 11, (i + 1) * 11));
+  return turn11BitsArrayIntoPassphrase(arrayOf11Bits);
+}
+
+function turn11BitsArrayIntoPassphrase(arrayOf11Bits) {
+  const passphrase = arrayOf11Bits
     .map(bits => parseInt(bits, 2))
     .map(number => wordList[number])
     .join(" - ");
-  return password;
+  return passphrase;
 }
 
-function makePassword(number_of_words) {
-  return turnBitsIntoWordList(
-    makeArrOf11Bits(
-      turnRandomIntoBinary(createRandomValues(number_of_words * 11)),
-      number_of_words
-    )
-  );
+// #####################################################
+// UI Fonctions
+
+const setElementTextContent = (element, content) => (element.textContent = content);
+const showElement = element => void element.classList.remove("hide");
+const hideElement = element => void element.classList.add("hide");
+
+const setTextAndShowElements = elements => {
+  elements.map(element => {
+    setElementTextContent(element.name, element.text);
+    showElement(element.name);
+  });
+};
+
+const Warn = message => {
+  hideElement(passphraseElement);
+  hideElement(statsElement);
+  setElementTextContent(warningElement, message);
+  showElement(warningElement);
+};
+
+const sureInt = number => Math.floor(Number(number));
+
+// #####################################################
+// Event Handler
+
+function clickHandler(event) {
+  event.preventDefault();
+  const numberInt = sureInt(inputNumberOfWordsForPassphrase.value);
+  inputNumberOfWordsForPassphrase.value = numberInt;
+  sideEffectsDependingOnNumber(numberInt);
 }
 
-function surePosInt(number) {
-  if (number < 0) return 0;
-  else return Math.floor(Number(number));
+function sideEffectsDependingOnNumber(number) {
+  if (number <= 0) Warn("Merci de rentrer un entier positif...");
+  if (number > 5000) Warn("Merci de rentrer un entier positif inférieur à 5001.");
+  if (number > 0 && number <= 5000) numberIsInRangeEffects(number);
 }
 
-// Init
+function numberIsInRangeEffects(number) {
+  hideElement(warningElement);
+  setTextAndShowElements([
+    { name: statsElement, text: `${number * 11} bits d'entropie.` },
+    { name: passphraseElement, text: makePassphrase(number) },
+  ]);
+  statsElement.scrollIntoView({ behavior: "smooth" });
+}
 
-inputNumberWords.defaultValue = "8";
-
+// #####################################################
 // Events
 
-btnNewPassword.addEventListener("click", function (e) {
-  e.preventDefault();
-  const number = surePosInt(inputNumberWords.value);
-  inputNumberWords.value = number;
-  if (number === 0) {
-    warning.textContent = "Merci de rentrer un entier positif...";
-    warning.classList.remove("hide");
-  } else if (number > 5000) {
-    warning.textContent = "Merci de rentrer un entier positif inférieur 5001.";
-    warning.classList.remove("hide");
-  } else {
-    warning.classList.add("hide");
-    stats.classList.remove("hide");
-    password.classList.remove("hide");
-    password.textContent = makePassword(number);
-    stats.textContent = `${number * 11} bits d'entropie.`;
-    password.scrollIntoView({ behavior: "smooth" });
-  }
-});
+btnNewPassword.addEventListener("click", clickHandler);
