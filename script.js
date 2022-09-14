@@ -1,3 +1,5 @@
+import { wordList } from "./wordList.js";
+
 const warningElement = document.querySelector(".warning");
 const inputNumberOfWordsForPassphrase = document.querySelector("input");
 const btnNewPassword = document.querySelector(".btnSubmit");

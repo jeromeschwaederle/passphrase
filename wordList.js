@@ -2048,3 +2048,5 @@ const wordList = {
   2046: "zeste",
   2047: "zoologie",
 };
+
+export { wordList };
